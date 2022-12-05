@@ -1,0 +1,1 @@
+trtexec --loadEngine=distillbert_seq_128.plan --shapes=input_ids:1x128,attention_mask:1x128

@@ -24,7 +24,8 @@ end=datetime.now()
 print(output,"time:",(end-begin).total_seconds())
 # get output name
 input_name0 = sess.get_inputs()[0].name
-print("input name0", input_name0)
+input_shape0 = sess.get_inputs()[0].shape
+print("input name0", input_name0,input_shape0)
 input_name1 = sess.get_inputs()[1].name
 print("input name1", input_name1)
 output_name= sess.get_outputs()[0].name
