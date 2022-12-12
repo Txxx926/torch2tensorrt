@@ -5,9 +5,7 @@ import common
 from datetime import datetime
 from transformers import AutoConfig, AutoTokenizer, AutoModelForSequenceClassification
 
-"""
-a、获取 engine，建立上下文
-"""
+
 TRT_LOGGER = trt.Logger(trt.Logger.WARNING)
 
 def get_engine(engine_file_path):
@@ -52,15 +50,13 @@ origin_inputshape[0],origin_inputshape[1] = tokens_id.shape     # (batch_size, m
 context.set_binding_shape(0, (origin_inputshape))               
 context.set_binding_shape(1, (origin_inputshape))
 
-"""
-c、输入数据填充
-"""
+
 inputs, outputs, bindings, stream = common.allocate_buffers_v2(engine, context)
 inputs[0].host = tokens_id
 inputs[1].host = attention_mask
 
 """
-d、tensorrt推理
+d、tensorrt
 """
 begin=datetime.now()
 trt_outputs = common.do_inference_v2(context, bindings=bindings, inputs=inputs, outputs=outputs, stream=stream)
