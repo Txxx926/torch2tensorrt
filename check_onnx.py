@@ -10,6 +10,9 @@ from datetime import datetime
 sess = rt.InferenceSession("distillbert.onnx",providers=['CUDAExecutionProvider'])
 
 model_id = "distilbert-base-uncased-finetuned-sst-2-english"
+
+model_id="textattack/bert-base-uncased-yelp-polarity"
+
 model = AutoModelForSequenceClassification.from_pretrained(model_id).cuda()
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 

@@ -6,6 +6,9 @@ from transformers import AutoConfig, AutoTokenizer, AutoModelForSequenceClassifi
 # load model and tokenizer
 model_id = "distilbert-base-uncased-finetuned-sst-2-english"
 feature = "sequence-classification"
+
+model_id="textattack/bert-base-uncased-yelp-polarity"
+save_name="bert-base"
 model = AutoModelForSequenceClassification.from_pretrained(model_id)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
@@ -19,7 +22,8 @@ onnx_inputs, onnx_outputs = transformers.onnx.export(
         model=model,
         config=onnx_config,
         opset=13,
-        output=Path("distillbert.onnx")
+        output=Path(save_name+".onnx")
 )
+
 print(onnx_inputs)
 print(onnx_outputs)

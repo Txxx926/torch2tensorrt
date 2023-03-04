@@ -1,2 +1,2 @@
-trtexec --loadEngine=distillbert_seq_128.plan --shapes=input_ids:8x128,attention_mask:8x128
-trtexec --loadEngine=distillbert_seq_512_min1x32_opt_8x128_max_64x512.plan --shapes=input_ids:8x128,attention_mask:8x128
+trtexec --loadEngine=distillbert_seq_128.plan --shapes=input_ids:64x128,attention_mask:64x128 --verbose
+#trtexec --loadEngine=distillbert_seq_256.plan --shapes=input_ids:16x256,attention_mask:16x256 --verbose

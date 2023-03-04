@@ -15,6 +15,8 @@ def get_engine(engine_file_path):
         return engine
 
 engine_model_path = "distillbert_seq_128.plan"
+
+engine_model_path = "bert_base_seq_256.plan"
 # Build a TensorRT engine.
 engine = get_engine(engine_model_path)
 # Contexts are used to perform inference.
@@ -27,10 +29,14 @@ b、从engine中获取inputs, outputs, bindings, stream 的格式以及分配缓
 def to_numpy(tensor):
     return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-input_seq=128
+input_seq=256
+
+model_id="distilbert-base-uncased-finetuned-sst-2-english"
+
+model_id="textattack/bert-base-uncased-yelp-polarity"
 
 sentence = ["i hate Shake. He is a bad guy in the baskerball game"]
-tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 inputs = tokenizer.batch_encode_plus(sentence, return_tensors='pt', add_special_tokens=True)
 
 
@@ -49,7 +55,7 @@ origin_inputshape = context.get_binding_shape(0)                # (1,-1)
 origin_inputshape[0],origin_inputshape[1] = tokens_id.shape     # (batch_size, max_sequence_length)
 context.set_binding_shape(0, (origin_inputshape))               
 context.set_binding_shape(1, (origin_inputshape))
-
+context.set_binding_shape(2, (origin_inputshape))
 
 inputs, outputs, bindings, stream = common.allocate_buffers_v2(engine, context)
 inputs[0].host = tokens_id
