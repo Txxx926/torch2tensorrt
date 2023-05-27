@@ -1,2 +1,2 @@
-trtexec --loadEngine=distillbert_seq_128.plan --shapes=input_ids:64x128,attention_mask:64x128 --verbose
-#trtexec --loadEngine=distillbert_seq_256.plan --shapes=input_ids:16x256,attention_mask:16x256 --verbose
+#trtexec --loadEngine=/usr/local/onnx_models/bert_base_seq_256_bs_free.plan --shapes=input_ids:32x64,attention_mask:32x64,token_type_ids:32x64 --verbose
+trtexec --loadEngine=/usr/local/onnx_models/bert_base_seq_384_fp16.plan --shapes=input_ids:32x384,attention_mask:32x384,token_type_ids:32x384 --verbose
